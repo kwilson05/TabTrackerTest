@@ -12,9 +12,9 @@ app.use(bodyParser.json());
 //allow cross origin request from any client
 app.use(cors());
 
-app.get('/status', (req, res) => {
+app.post('/register', (req, res) => {
     res.send({
-        message: 'hello world'
+        message: `${req.body.email}! Your user was registered have fun`
     });
 });
 app.listen(process.env.PORT || 8081);
