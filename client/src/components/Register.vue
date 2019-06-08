@@ -1,6 +1,6 @@
 <template>
-  <v-layout column>
-    <v-flex xs6 offset-xs3>
+  <v-layout justify-center row>
+    <v-flex  md7 lg6 xs10 sm10 xl5 >
       <div class="white elevation-2">
 
         <v-toolbar flat dense class="cyan" dark>
@@ -12,7 +12,7 @@
           <br>
           <v-text-field label="Password"   v-model="password" />
           <br>
-          <div v-html="error" class="err" </div> <!--why is register div stretching with page-->
+          <div v-html="error" class="err"> </div>
           <br>
           <v-btn dark class="cyan" @click="register">
             Register</v-btn>
