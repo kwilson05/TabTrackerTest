@@ -1,16 +1,16 @@
 <template>
   <v-layout justify-center row>
     <v-flex md7 lg6 xs10 sm10 xl5>
-      <panel title="Register">
-        <form name="tab-tracker-form" auto-complete="off">
+      <panel title="Login">
+        <form name="tab-tracker-login-form">
           <v-text-field label="Email" v-model="email" />
           <br>
-          <v-text-field label="Password" type="password" auto-complete="new-password" v-model="password" />
+          <v-text-field label="Password" type="password" v-model="password" />
           <br>
           <div v-html="error" class="err"> </div>
           <br>
-          <v-btn dark class="cyan" @click="register">
-            Register</v-btn>
+          <v-btn dark class="cyan" @click="login">
+            Login</v-btn>
         </form>
       </panel>
     </v-flex>
@@ -32,9 +32,9 @@ export default {
     }
   },
   methods: {
-    async register () {
+    async login () {
       try {
-        const response = await AuthenticationService.register({
+        const response = await AuthenticationService.login({
           email: this.email,
           password: this.password
         })
