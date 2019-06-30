@@ -5,7 +5,8 @@ import Login from '@/components/Login'
 import Home from '@/components/Home'
 import Songs from '@/components/Songs'
 import CreateSong from '@/components/CreateSong'
-import ViewSong from '@/components/ViewSong'
+import EditSong from '@/components/EditSong'
+import ViewSong from '@/components/ViewSong/ViewSong'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ const routes = [{
   path: '/songs/create',
   name: 'songs-create',
   component: CreateSong
+},
+{
+  path: '/songs/edit/:songId',
+  name: 'songs-edit',
+  component: EditSong
 },
 {
   path: '/songs/:songId',
