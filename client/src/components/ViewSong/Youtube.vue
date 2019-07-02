@@ -4,7 +4,7 @@
   </panel>
 </template>
 <script>
-import Panel from '@/components/Panel'
+
 import VueYouTubeEmbed, {YouTubePlayer} from 'vue-youtube-embed'
 import Vue from 'vue'
 Vue.use(VueYouTubeEmbed, { global: false })
@@ -12,7 +12,6 @@ Vue.use(VueYouTubeEmbed, { global: false })
 export default {
   name: 'Youtube',
   components: {
-    Panel,
     'youtube': YouTubePlayer
   },
   props: [

@@ -1,6 +1,4 @@
 <template>
-  <v-layout justify-center row>
-    <v-flex md7 lg6 xs10 sm10 xl5>
       <panel title="Songs">
         <v-btn to="songs/create" slot="action" class="cyan accent-2" light small absolute right middle fab>
           <v-icon>add</v-icon>
@@ -26,15 +24,13 @@
           </v-layout>
         </div>
       </panel>
-    </v-flex>
-  </v-layout>
 </template>
 <script>
-import Panel from '@/components/Panel'
+
 import SongsService from '@/services/SongsService'
 export default {
   components: {
-    Panel
+
   },
   data () {
     return {

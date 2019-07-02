@@ -20,14 +20,13 @@
 </template>
 <script>
 import SongsService from '@/services/SongsService'
-import Panel from '@/components/Panel'
+
 import SongMetaData from './SongMetaData'
 import Tabs from './Tabs'
 import Lyrics from './Lyrics'
 import Youtube from './Youtube'
 export default {
   components: {
-    Panel,
     'songmetadata': SongMetaData,
     Tabs,
     Lyrics,

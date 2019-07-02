@@ -24,12 +24,12 @@
   </v-layout>
 </template>
 <script>
-import Panel from '@/components/Panel'
+
 import SongsService from '@/services/SongsService'
 
 export default {
   components: {
-    Panel
+
   },
   data () {
     return {

@@ -4,11 +4,11 @@
   </panel>
 </template>
 <script>
-import Panel from '@/components/Panel'
+
 export default {
   name: 'Lyrics',
   components: {
-    Panel
+
   },
   props: [
     'song'
