@@ -7,7 +7,7 @@
           <br>
           <v-text-field label="Password" type="password" v-model="password" />
           <br>
-          <div v-html="error" class="err"> </div>
+          <div v-html="error" class="danger-alert"> </div>
           <br>
           <v-btn dark class="cyan" @click="login">
             Login</v-btn>
@@ -39,6 +39,9 @@ export default {
 
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
+        this.$router.push({
+        name : 'songs'
+        })
       } catch (error) {
         this.error = error.response.data.error
       }
@@ -49,8 +52,6 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.err {
-  color: red
-}
+
 
 </style>

@@ -1,32 +1,31 @@
 <template>
-      <panel title="Songs">
-        <v-btn to="songs/create" slot="action" class="cyan accent-2" light small absolute right middle fab>
-          <v-icon>add</v-icon>
-        </v-btn>
-        <div class="song" v-for="song in songs" :key="song.id">
-          <v-layout>
-            <v-flex xs6>
-              <div class="song-title">
-                {{song.title}}
-              </div>
-              <div class="song-artist">
-                {{song.artist}}
-              </div>
-              <div class="song-genre">
-                {{song.genre}}
-              </div>
-              <v-btn dark class="cyan" @click="navigateTo({name: 'song', params: {songId: song.id}})">
-                View</v-btn>
-            </v-flex>
-            <v-flex xs6>
-              <img class="album-image" :src="song.albumImageUrl" />
-            </v-flex>
-          </v-layout>
-        </div>
-      </panel>
+  <panel title="Songs">
+    <v-btn to="songs/create" slot="action" class="cyan accent-2" light small absolute right middle fab>
+      <v-icon>add</v-icon>
+    </v-btn>
+    <div class="song" v-for="song in songs" :key="song.id">
+      <v-layout>
+        <v-flex xs6>
+          <div class="song-title">
+            {{song.title}}
+          </div>
+          <div class="song-artist">
+            {{song.artist}}
+          </div>
+          <div class="song-genre">
+            {{song.genre}}
+          </div>
+          <v-btn dark class="cyan" @click="navigateTo({name: 'song', params: {songId: song.id}})">
+            View</v-btn>
+        </v-flex>
+        <v-flex xs6>
+          <img class="album-image" :src="song.albumImageUrl" />
+        </v-flex>
+      </v-layout>
+    </div>
+  </panel>
 </template>
 <script>
-
 import SongsService from '@/services/SongsService'
 export default {
   components: {
@@ -44,9 +43,13 @@ export default {
       this.$router.push(route)
     }
   },
-  async mounted () {
-    // do a request to the backend for all the songs
-    this.songs = (await SongsService.getAllSongs()).data
+  watch: {
+    '$route.query.search': {
+      immediate: true,
+      async handler (value) {
+        this.songs = (await SongsService.getAllSongs(value)).data
+      }
+    }
   }
 }
 
