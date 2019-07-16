@@ -10,7 +10,7 @@
     </v-layout>
     <v-layout>
       <v-flex xs6>
-        <youtube :youtubeId="song.youtubeId"/>
+        <youtube :youtubeId="song.youtubeId" />
       </v-flex>
       <v-flex xs6 class="ml-2">
         <lyrics :song="song" />
@@ -19,12 +19,14 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import SongsService from '@/services/SongsService'
-
 import SongMetaData from './SongMetaData'
 import Tabs from './Tabs'
 import Lyrics from './Lyrics'
 import Youtube from './Youtube'
+import SongHistoryService from '@/services/SongHistoryService'
+
 export default {
   components: {
     'songmetadata': SongMetaData,
@@ -32,17 +34,32 @@ export default {
     Lyrics,
     Youtube
   },
-  data () {
+  data() {
     return {
       song: {}
     }
   },
+
+  computed: {
+    ...mapState([
+      'isUserLoggedIn',
+      'user',
+      'route'
+    ])
+  },
   async mounted () {
-    const songId = this.$store.state.route.params.songId
+    const songId = this.route.params.songId
     this.song = (await SongsService.showSong(songId)).data
+
+    if (this.isUserLoggedIn) {
+      SongHistoryService.addSongHistory({
+        songId: songId,
+        userId: this.user.id
+      })
+    }
   },
   methods: {
-    navigateTo (route) {
+    navigateTo(route) {
       this.$router.push(route)
     }
   }

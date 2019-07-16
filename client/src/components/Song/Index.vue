@@ -1,8 +1,12 @@
 <template>
   <v-layout justify-center row>
     <v-flex md7 lg6 xs10 sm10 xl5>
+      <songs-bookmarks class="mr-2" />
+      <recently-viewed-songs class="mr-2 mt-2" />
+    </v-flex>
+    <v-flex md7 lg6 xs10 sm10 xl5>
       <songs-search-panel />
-     <songs-panel class="mt-2" />
+      <songs-panel class="mt-2" />
     </v-flex>
   </v-layout>
 </template>
@@ -10,21 +14,23 @@
 import SongsPanel from './SongsPanel'
 import SongsService from '@/services/SongsService'
 import SongSearchPanel from './SongsSearchPanel'
+import SongsBookMarks from './SongsBookMarks'
+import RecentlyViewedSongs from './RecentlyViewedSongs'
 
 export default {
   components: {
     'songs-panel': SongsPanel,
-    'songs-search-panel': SongSearchPanel
+    'songs-search-panel': SongSearchPanel,
+    'songs-bookmarks': SongsBookMarks,
+    'recently-viewed-songs': RecentlyViewedSongs
   },
-  data () {
+  data() {
     return {
-
       songs: null
-
     }
   },
   methods: {
-    navigateTo (route) {
+    navigateTo(route) {
       this.$router.push(route)
     }
   },

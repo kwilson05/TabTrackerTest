@@ -13,6 +13,10 @@
         </div>
         <v-btn dark class="cyan" @click="navigateTo ({name: 'songs-edit', params: {songId: song.id}})">
           Edit</v-btn>
+        <v-btn v-if="isUserLoggedIn && !bookmark" dark class="cyan" @click="bookMark">
+          Bookmark</v-btn>
+        <v-btn v-if="isUserLoggedIn && bookmark" dark class="cyan" @click="unBookMark">
+          UnBookmark</v-btn>
       </v-flex>
       <v-flex xs6>
         <img class="album-image" :src="song.albumImageUrl" />
@@ -23,19 +27,71 @@
   </panel>
 </template>
 <script>
-
+import { mapState } from 'vuex'
+import BookMarkService from '@/services/BookMarkService'
 export default {
   name: 'SongMetaData',
   components: {
 
   },
+  data() {
+    return {
+      bookmark: null
+    }
+  },
   props: [
     'song'
   ],
-  methods: {
-    navigateTo (route) {
-      this.$router.push(route)
+  computed: {
+    ...mapState([
+      'isUserLoggedIn',
+      'user'
+    ])
+  },
+  watch: {
+    async song () {
+      if (!this.isUserLoggedIn) {
+        return
+      }
+      try {
+        const bookmarks = (await BookMarkService.getAllBookMarks({
+          songId: this.song.id,
+          userId: this.user.id
+        })).data
+
+        if (bookmarks.length) {
+          this.bookmark = bookmarks[0]
+        }
+      } catch (err) {
+        console.log(err)
+      }
+
     }
+  },
+  methods: {
+    navigateTo(route) {
+      this.$router.push(route)
+    },
+    async bookMark () {
+      try {
+        this.bookmark = (await BookMarkService.addBookMark({
+          songId: this.song.id,
+          userId: this.user.id
+        })).data
+
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async unBookMark () {
+      try {
+        await BookMarkService.removeBookMark(this.bookmark.bookmarkId)
+        this.bookmark = null
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
   }
 }
 
