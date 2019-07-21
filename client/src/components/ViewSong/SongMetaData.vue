@@ -56,7 +56,6 @@ export default {
       try {
         const bookmarks = (await BookMarkService.getAllBookMarks({
           songId: this.song.id,
-          userId: this.user.id
         })).data
 
         if (bookmarks.length) {
@@ -75,8 +74,7 @@ export default {
     async bookMark () {
       try {
         this.bookmark = (await BookMarkService.addBookMark({
-          songId: this.song.id,
-          userId: this.user.id
+          songId: this.song.id
         })).data
 
       } catch (error) {

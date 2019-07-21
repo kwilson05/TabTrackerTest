@@ -53,8 +53,7 @@ export default {
 
     if (this.isUserLoggedIn) {
       SongHistoryService.addSongHistory({
-        songId: songId,
-        userId: this.user.id
+        songId: songId
       })
     }
   },

@@ -9,7 +9,7 @@ module.exports = {
     async getAllSongHistory (req, res) {
 
         try {
-            const { userId } = req.query
+            const userId  =  req.user.id
 
 
 
@@ -27,11 +27,7 @@ module.exports = {
                     historyId: history.id
                 }, history.Song))
 
-
-            console.log(allSongHistory)
-
-
-            res.send(allSongHistory)
+            res.send(_.uniqBy(allSongHistory, history => history.id))
         } catch (err) {
             console.log(err)
             res.status(500).send({
@@ -42,7 +38,8 @@ module.exports = {
     async addSongHistory (req, res) {
         try {
 
-            const { songId, userId } = req.body
+            const userId = req.user.id
+            const { songId } = req.body
 
 
             const history = await Histories.create({

@@ -31,7 +31,7 @@ export default {
         }
       ],
       pagination: {
-        sortBy: 'date',
+        sortBy: 'createdAt',
         descending: true
       },
       bookmarks: [
@@ -47,7 +47,6 @@ export default {
   async mounted () {
     if (this.isUserLoggedIn) {
       this.bookmarks = (await BookMarkService.getAllBookMarks({
-        userId: this.user.id
       })).data
     }
   }

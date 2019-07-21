@@ -9,7 +9,10 @@ module.exports = {
     async getAllBookMarks (req, res) {
 
         try {
-            const { songId, userId } = req.query
+
+            const userId = req.user.id
+
+            const {songId} = req.query
 
 
             let where = {
@@ -46,12 +49,13 @@ module.exports = {
 
             const bookmarkParams = req.body
 
+            const userId = req.user.id
 
 
             const bookmark = await BookMark.findOne({
                 where: {
                     SongId: bookmarkParams.songId,
-                    UserId: bookmarkParams.userId
+                    UserId: userId
                 }
             })
 
@@ -63,7 +67,7 @@ module.exports = {
 
             const newBookMark = await BookMark.create({
                 SongId: bookmarkParams.songId,
-                UserId: bookmarkParams.userId
+                UserId: userId
             })
             res.send(newBookMark)
         } catch (err) {
@@ -76,9 +80,24 @@ module.exports = {
     async removeBookMark (req, res) {
 
         try {
+
+            const userId = req.user.id
             const { bookmarkId } = req.params
 
-            const bookmark = await BookMark.findByPk(bookmarkId)
+            const bookmark = await BookMark.findOne({
+                where: {
+                    id: bookmarkId,
+                    UserId: userId
+                }
+            })
+
+            if(!bookmark)
+            {
+                return res.status(403).send(
+                {
+                   error:'you do not have access to this bookmark'
+                })
+            }
 
 
             await bookmark.destroy()
